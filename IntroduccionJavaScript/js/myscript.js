@@ -252,6 +252,6 @@ function myAlert(msg) {
     close.classList.add("close");
     close.innerHTML="X";
     div.appendChild(close);
-    $("body").insertBefore(div, $("body").firstChild);
+    $("body").insertBefore(div, $("body").firstChild());
     bind_close();
 }

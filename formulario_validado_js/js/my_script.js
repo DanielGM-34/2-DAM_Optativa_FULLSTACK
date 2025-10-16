@@ -14,20 +14,33 @@ document.querySelector("form").addEventListener("submit", function (e) {
     error.style.color = "red";
     error.textContent = mensaje;
     campo.parentNode.appendChild(error);
+    campo.classList.remove("valid");
     campo.classList.add("invalid");
     todoCorrecto = false;
   }
+
+  // Función para marcar como válido
+  function marcarValido(id) {
+    const campo = document.getElementById(id);
+    campo.classList.remove("invalid");
+    campo.classList.add("valid");
+  }
+
   // Validaciones con patrones regulares
   const nombre = form.nombre.value.trim();
   const nombreRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{3,}$/;
   if (!nombreRegex.test(nombre)) {
     mostrarError("nombre", "Nombre inválido (mínimo 3 letras, sin números).");
+  } else {
+    marcarValido("nombre");
   }
 
   const email = form.email.value.trim();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     mostrarError("email", "Correo electrónico no válido.");
+  } else {
+    marcarValido("email");
   }
 
   const password = form.password.value;
@@ -58,11 +71,11 @@ document.querySelector("form").addEventListener("submit", function (e) {
   if (erroresPassword.length > 0) {
     mostrarError(
       "password",
-      "La contraseña debe cumplir:\n" + erroresPassword.join("\n"),
+      "La contraseña debe cumplir:\n" + erroresPassword.join("\n")
     );
+  } else {
+    marcarValido("password");
   }
-    
-console.log(erroresPassword)
 
   const fecha = form.fecha.value;
   if (fecha === "") {
@@ -72,6 +85,8 @@ console.log(erroresPassword)
     const hoy = new Date();
     if (fechaIngresada > hoy) {
       mostrarError("fecha", "La fecha no puede ser futura.");
+    } else {
+      marcarValido("fecha");
     }
   }
 
@@ -79,23 +94,31 @@ console.log(erroresPassword)
   const cpRegex = /^\d{5}$/;
   if (!cpRegex.test(cp)) {
     mostrarError("cp", "Código postal de 5 números.");
+  } else {
+    marcarValido("cp");
   }
 
   const telefono = form.telefono.value;
   const telRegex = /^\d{9}$/;
   if (!telRegex.test(telefono)) {
     mostrarError("telefono", "Teléfono de 9 números.");
+  } else {
+    marcarValido("telefono");
   }
 
   const genero = form.genero.value;
   if (genero === "") {
     mostrarError("genero", "Selecciona tu género.");
+  } else {
+    marcarValido("genero");
   }
 
   const pais = form.pais.value.trim();
   const paisRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
   if (!paisRegex.test(pais)) {
     mostrarError("pais", "El país no debe contener números ni símbolos.");
+  } else {
+    marcarValido("pais");
   }
 
   const dni = form.dni.value.trim();
@@ -103,20 +126,25 @@ console.log(erroresPassword)
   const nieRegex = /^[XYZ][0-9]{7}[A-Z]$/;
   if (!dniRegex.test(dni) && !nieRegex.test(dni)) {
     mostrarError("dni", "DNI/NIE/Pasaporte no válido.");
+  } else {
+    marcarValido("dni");
   }
 
   const comentarios = form.comentarios.value.trim();
   const comentariosRegex = /^.{10,}$/;
   if (!comentariosRegex.test(comentarios)) {
     mostrarError("comentarios", "Escribe al menos 10 caracteres.");
+  } else {
+    marcarValido("comentarios");
   }
 
   const direccion = form.direccion.value.trim();
   const referenciaRegex = /^.{3,}$/;
   if (!referenciaRegex.test(direccion)) {
     mostrarError("direccion", "Pon aquí tu dirección.");
+  } else {
+    marcarValido("direccion");
   }
-
 
   if (todoCorrecto) {
     alert(`Datos introducidos:
@@ -137,16 +165,33 @@ Dirección: ${direccion}`);
   }
 });
 
-document
-  .getElementById("togglePassword")
-  .addEventListener("click", function () {
-    const input = document.getElementById("password");
-    const icon = this;
-    if (input.type === "password") {
-      input.type = "text";
-      icon.textContent = "🙈";
-    } else {
-      input.type = "password";
-      icon.textContent = "👁️";
-    }
+// Mostrar/ocultar contraseña
+document.getElementById("togglePassword").addEventListener("click", function () {
+  const input = document.getElementById("password");
+  const icon = this;
+  if (input.type === "password") {
+    input.type = "text";
+    icon.textContent = "🙈";
+  } else {
+    input.type = "password";
+    icon.textContent = "👁️";
+  }
+});
+
+// Limpiar estilos y mensajes al hacer reset
+document.querySelector("form").addEventListener("reset", function () {
+  // Eliminar clases de validación
+  document.querySelectorAll(".form-control").forEach((campo) => {
+    campo.classList.remove("valid", "invalid");
   });
+
+  // Eliminar mensajes de error
+  document.querySelectorAll(".error-message").forEach((el) => el.remove());
+
+  // Restaurar icono de contraseña si fue cambiado
+  const input = document.getElementById("password");
+  const icon = document.getElementById("togglePassword");
+  input.type = "password";
+  icon.textContent = "👁️";
+});
+

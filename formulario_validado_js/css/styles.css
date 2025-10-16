@@ -75,3 +75,13 @@
   font-size: 18px;
   user-select: none;
 }
+
+.invalid {
+  background-image: linear-gradient(to right, rgb(238, 33, 67), rgb(177, 69, 57));
+  color: white;
+}
+
+.valid {
+  background-color: green;
+  color:white;
+}
