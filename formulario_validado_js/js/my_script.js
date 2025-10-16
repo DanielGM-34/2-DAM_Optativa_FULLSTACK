@@ -1,6 +1,5 @@
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
-
   const form = e.target;
   let todoCorrecto = true;
 
