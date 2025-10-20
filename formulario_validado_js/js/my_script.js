@@ -172,7 +172,7 @@ document.getElementById("cp").addEventListener("blur", () =>
   validarCampo("cp", validarCP, "Código postal de 5 números.")
 );
 document.getElementById("telefono").addEventListener("blur", () =>
-  validarCampo("telefono", validarTelefono, "el teléfono debe tener 9 números JUNTOS.")
+  validarCampo("telefono", validarTelefono, "el teléfono debe tener 9 números JUNTOS y debe COMENZAR POR 6 O 7.")
 );
 document.getElementById("genero").addEventListener("blur", () =>
   validarCampo("genero", validarGenero, "Selecciona tu género.")
@@ -190,51 +190,27 @@ document.getElementById("direccion").addEventListener("blur", () =>
   validarCampo("direccion", validarDireccion, "Pon aquí tu dirección. Debe empezar por Calle, C, Avenida, Avda., Plaza, Camino, Paseo o Carretera seguido del nombre y número. Ejemplo: Calle Mayor 10")
 );
 
-// Mostrar/ocultar contraseña
-document.getElementById("togglePassword").addEventListener("click", function () {
-  const input = document.getElementById("password");
-  const icon = this;
-  input.type = input.type === "password" ? "text" : "password";
-  icon.textContent = input.type === "password" ? "👁️" : "🙈";
-});
 
-// Resetear estilos y errores
-document.querySelector("form").addEventListener("reset", function () {
-  document.querySelectorAll(".form-control").forEach((campo) =>
-    campo.classList.remove("valid", "invalid")
-  );
-  document.querySelectorAll(".error-message").forEach((el) => el.remove());
-  document.getElementById("password").type = "password";
-  document.getElementById("togglePassword").textContent = "👁️";
-  actualizarBotonSubmit();
-});
+function limpiarFormulario() {
+  const form = document.querySelector("form");
 
-// Validar y mostrar datos al enviar
-// Mostrar/ocultar contraseña
-document.getElementById("togglePassword").addEventListener("click", function () {
-  const input = document.getElementById("password");
-  const icon = this;
-  input.type = input.type === "password" ? "text" : "password";
-  icon.textContent = input.type === "password" ? "👁️" : "🙈";
-});
-
-// Quitar estilos y errores
-document.querySelector("form").addEventListener("reset", function () {
-  // Elimina clases de validación de todos los campos relevantes
-  this.querySelectorAll("input, select, textarea").forEach((campo) =>
+  form.querySelectorAll("input, select, textarea").forEach((campo) =>
     campo.classList.remove("valid", "invalid")
   );
 
-  // Elimina mensajes de error
-  this.querySelectorAll(".error-message").forEach((el) => el.remove());
+  form.querySelectorAll(".error-message").forEach((el) => el.remove());
 
-  // Restablece el tipo de campo de contraseña
   document.getElementById("password").type = "password";
   document.getElementById("togglePassword").textContent = "👁️";
-
-  // Actualiza el estado del botón de envío
+  form.reset();
   actualizarBotonSubmit();
-});
+}
+
+// Escucha el evento reset
+document.querySelector("form").addEventListener("reset", limpiarFormulario);
+
+// Puedes llamarla manualmente cuando quieras
+limpiarFormulario();
 
 
 // Mostrar animación con los datos
@@ -283,28 +259,11 @@ document.querySelector("form").addEventListener("submit", function (e) {
   };
 
   const esValido = validarTodosLosCampos();
-
   if (esValido) {
-    const form = e.target;
-    const datos = {
-      nombre: form.nombre.value.trim(),
-      email: form.email.value.trim(),
-      password: form.password.value,
-      fecha: form.fecha.value,
-      cp: form.cp.value,
-      telefono: form.telefono.value,
-      genero: form.genero.value,
-      pais: form.pais.value,
-      dni: form.dni.value.trim(),
-      comentarios: form.comentarios.value.trim(),
-      direccion: form.direccion.value.trim()
-    };
-
     mostrarAnimacion(datos);
+    limpiarFormulario();
   }
 });
-
-
 
 // Mostrar/ocultar contraseña
 document.getElementById("togglePassword").addEventListener("click", function () {

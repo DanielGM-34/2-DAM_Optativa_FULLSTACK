@@ -92,7 +92,7 @@ button {
 }
 
 button[type="reset"] {
-  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  background: linear-gradient(135deg, #6d2132, #ae665a);
   margin-left: 10px;
 }
 
@@ -114,7 +114,6 @@ button:hover {
   field-sizing: content;
 }
 
-/* Password toggle */
 .password-container {
   position: relative;
 }
@@ -163,8 +162,6 @@ select.valid {
   color: #fffcfc;
 }
 
-
-
 /* Animación de error */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -183,15 +180,34 @@ select.valid {
   border-radius: 12px;
   padding: 20px;
   width: 320px;
-  field-sizing: content;
-
   max-width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  overflow-wrap: break-word;
+  word-break: break-word;
   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   animation: slideInRight 0.8s ease-in-out, glow 2s infinite alternate;
   z-index: 1000;
   font-family: sans-serif;
   color: #fff;
 }
+
+legend {
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(135deg, #56ab2f, #a8e063);
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+@keyframes fadeInLegend {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(150px) rotate(10deg); }

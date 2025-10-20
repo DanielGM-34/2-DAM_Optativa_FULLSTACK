@@ -12,8 +12,12 @@
 <body>
     <form action="/submit" method="post" class="form-example">
         <h2>Formulario de registro</h2>
-
-        <!-- 1. Nombre -->
+            <legend>Para pasar de campo a campo, puedes usar el <strong>tabulador</strong>para ir de un campo a otro y aparecerán las distintas validaciones de campos
+            El botón enviar (submit), se mostrará cuando se hayan verificado el cumplimiento de todas las validaciones.
+            </legend>
+        
+        
+            <!-- 1. Nombre -->
         <div class="form-group">
             <label for="nombre">Nombre completo:</label>
             <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
@@ -22,7 +26,7 @@
         <!-- 2. Correo electrónico -->
         <div class="form-group">
             <label for="email">Correo electrónico:</label>
-            <input type="email" id="email" name="email" class="form-control" autocomplete="off">
+            <input type="text" id="email" name="email" class="form-control" autocomplete="off">
         </div>
 
         <!-- 3. Contraseña -->
