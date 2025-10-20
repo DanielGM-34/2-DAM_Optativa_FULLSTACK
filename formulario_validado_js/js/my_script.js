@@ -63,7 +63,6 @@ function mostrarError(id, mensaje) {
   error.style.color = "red";
   error.textContent = mensaje;
   campo.parentNode.appendChild(error);
-
   actualizarBotonSubmit();
 }
 
@@ -72,7 +71,6 @@ function limpiarErrores(id) {
   campo.classList.remove("invalid");
   campo.classList.add("valid");
   campo.parentNode.querySelectorAll(".error-message").forEach((el) => el.remove());
-
   actualizarBotonSubmit();
 }
 
@@ -172,7 +170,6 @@ document.querySelector("form").addEventListener("reset", function () {
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
   validarTodosLosCampos();
-
   const form = e.target;
   const datos = {
     nombre: form.nombre.value.trim(),
