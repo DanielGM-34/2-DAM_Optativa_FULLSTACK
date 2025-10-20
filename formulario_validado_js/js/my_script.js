@@ -14,31 +14,51 @@ function validarPassword(valor) {
   if (!/[A-Z]/.test(valor)){errores.push("- Al menos una mayúscula");} 
   if (!/[a-z]/.test(valor)){errores.push("- Al menos una minúscula");} 
   if (!/\d/.test(valor)){errores.push("- Al menos un número");} 
-  if (!/[$@$!%*?&]/.test(valor)){errores.push("- Al menos un carácter especial");} 
+  if (!/[$@$!%*?&#%]/.test(valor)){errores.push("- Al menos un carácter especial ($@$!%*?&#%)");} 
   if (/\s/.test(valor)){errores.push("- No debe tener espacios");} 
   return errores;
 }
 
 function validarFecha(valor) {
-  const hoy = new Date();
-  const fecha = new Date(valor);
-  return valor !== "" && fecha <= hoy;
+  let esValido = false;
+
+  if (valor) {
+    const hoy = new Date();
+    const fecha = new Date(valor);
+
+    if (!isNaN(fecha.getTime())) {
+      let edad = hoy.getFullYear() - fecha.getFullYear();
+      const mes = hoy.getMonth() - fecha.getMonth();
+
+      // Ajustar si aún no ha cumplido años este año
+      if (mes < 0 || (mes === 0 && hoy.getDate() < fecha.getDate())) {
+        edad--;
+      }
+
+      esValido = edad >= 18 && edad <= 100;
+    }
+  }
+
+  return esValido;
 }
+
+
 
 function validarCP(valor) {
   return /^\d{5}$/.test(valor);
 }
 
 function validarTelefono(valor) {
-  return /^\d{9}$/.test(valor);
+  return /^(\+34|0034)?\s?[6789]\d{8}$/.test(valor);
 }
+
 
 function validarGenero(valor) {
   return valor !== "";
 }
 
 function validarPais(valor) {
-  return /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(valor);
+  return valor !== "";
 }
 
 function validarDNI(valor) {
@@ -50,7 +70,8 @@ function validarComentarios(valor) {
 }
 
 function validarDireccion(valor) {
-  return /^.{3,}$/.test(valor);
+    const validaDireccion = /^(Calle|C|Avenida|Avda\.?|Plaza|Camino|Paseo|Carretera)\s+[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+\,?\s*\d{1,4}[A-Za-zºª\-]?(?:\s+\d{1,2}[ºª]?[A-Za-z]?)?$/;
+  return validaDireccion.test(valor);
 }
 
 // Mostrar y limpiar errores
@@ -99,17 +120,39 @@ function actualizarBotonSubmit() {
 
 // Validar todos los campos al enviar
 function validarTodosLosCampos() {
-  validarCampo("nombre", validarNombre, "Nombre inválido (mínimo 3 letras, sin números).");
-  validarCampo("email", validarEmail, "Correo electrónico no válido.");
-  validarCampo("password", validarPassword, "");
-  validarCampo("fecha", validarFecha, "Fecha inválida o futura.");
-  validarCampo("cp", validarCP, "Código postal de 5 números.");
-  validarCampo("telefono", validarTelefono, "Teléfono de 9 números.");
-  validarCampo("genero", validarGenero, "Selecciona tu género.");
-  validarCampo("pais", validarPais, "El país no debe contener números ni símbolos.");
-  validarCampo("dni", validarDNI, "DNI/NIE/Pasaporte no válido.");
-  validarCampo("comentarios", validarComentarios, "Escribe al menos 10 caracteres.");
-  validarCampo("direccion", validarDireccion, "Pon aquí tu dirección.");
+  const campos = [
+  ["nombre", validarNombre],
+  ["email", validarEmail],
+  ["password", validarPassword],
+  ["fecha", validarFecha],
+  ["cp", validarCP],
+  ["telefono", validarTelefono],
+  ["genero", validarGenero],
+  ["pais", validarPais],
+  ["dni", validarDNI],
+  ["comentarios", validarComentarios],
+  ["direccion", validarDireccion]
+];
+
+
+  let todoCorrecto = true;
+  campos.forEach(([id, validador, mensaje]) => {
+    const valor = document.getElementById(id).value.trim();
+    const resultado = validador(valor);
+    limpiarErrores(id);
+
+    if (typeof resultado === "boolean") {
+      if (!resultado) {
+        mostrarError(id, mensaje);
+        todoCorrecto = false;
+      }
+    } else if (Array.isArray(resultado) && resultado.length > 0) {
+      mostrarError(id, "La contraseña debe cumplir:\n" + resultado.join("\n"));
+      todoCorrecto = false;
+    }
+  });
+
+  return todoCorrecto;
 }
 
 // Eventos blur por campo
@@ -117,25 +160,25 @@ document.getElementById("nombre").addEventListener("blur", () =>
   validarCampo("nombre", validarNombre, "Nombre inválido (mínimo 3 letras, sin números).")
 );
 document.getElementById("email").addEventListener("blur", () =>
-  validarCampo("email", validarEmail, "Correo electrónico no válido.")
+  validarCampo("email", validarEmail, "Correo electrónico no válido. Este sería un ejemplo de un emaail válido: Emailfalso@ejemplo.com")
 );
 document.getElementById("password").addEventListener("blur", () =>
   validarCampo("password", validarPassword, )
 );
 document.getElementById("fecha").addEventListener("blur", () =>
-  validarCampo("fecha", validarFecha, "La fecha no puede ser futura.")
+  validarCampo("fecha", validarFecha, "La fecha no puede ser futura y la edad tiene que estar en un rango entre 18 y 100 años.")
 );
 document.getElementById("cp").addEventListener("blur", () =>
   validarCampo("cp", validarCP, "Código postal de 5 números.")
 );
 document.getElementById("telefono").addEventListener("blur", () =>
-  validarCampo("telefono", validarTelefono, "Teléfono de 9 números.")
+  validarCampo("telefono", validarTelefono, "el teléfono debe tener 9 números JUNTOS.")
 );
 document.getElementById("genero").addEventListener("blur", () =>
   validarCampo("genero", validarGenero, "Selecciona tu género.")
 );
 document.getElementById("pais").addEventListener("blur", () =>
-  validarCampo("pais", validarPais, "El país no debe contener números ni símbolos.")
+  validarCampo("pais", validarPais, "Debes seleccionar un país.")
 );
 document.getElementById("dni").addEventListener("blur", () =>
   validarCampo("dni", validarDNI, "DNI/NIE/Pasaporte no válido.")
@@ -144,7 +187,7 @@ document.getElementById("comentarios").addEventListener("blur", () =>
   validarCampo("comentarios", validarComentarios, "Escribe al menos 10 caracteres.")
 );
 document.getElementById("direccion").addEventListener("blur", () =>
-  validarCampo("direccion", validarDireccion, "Pon aquí tu dirección.")
+  validarCampo("direccion", validarDireccion, "Pon aquí tu dirección. Debe empezar por Calle, C, Avenida, Avda., Plaza, Camino, Paseo o Carretera seguido del nombre y número. Ejemplo: Calle Mayor 10")
 );
 
 // Mostrar/ocultar contraseña
@@ -167,6 +210,60 @@ document.querySelector("form").addEventListener("reset", function () {
 });
 
 // Validar y mostrar datos al enviar
+// Mostrar/ocultar contraseña
+document.getElementById("togglePassword").addEventListener("click", function () {
+  const input = document.getElementById("password");
+  const icon = this;
+  input.type = input.type === "password" ? "text" : "password";
+  icon.textContent = input.type === "password" ? "👁️" : "🙈";
+});
+
+// Quitar estilos y errores
+document.querySelector("form").addEventListener("reset", function () {
+  // Elimina clases de validación de todos los campos relevantes
+  this.querySelectorAll("input, select, textarea").forEach((campo) =>
+    campo.classList.remove("valid", "invalid")
+  );
+
+  // Elimina mensajes de error
+  this.querySelectorAll(".error-message").forEach((el) => el.remove());
+
+  // Restablece el tipo de campo de contraseña
+  document.getElementById("password").type = "password";
+  document.getElementById("togglePassword").textContent = "👁️";
+
+  // Actualiza el estado del botón de envío
+  actualizarBotonSubmit();
+});
+
+
+// Mostrar animación con los datos
+function mostrarAnimacion(datos) {
+  const contenedor = document.getElementById("animacionDatos");
+  contenedor.innerHTML = `
+    <h3>👌 Datos enviados correctamente</h3>
+    <ul>
+      <li><strong>Nombre:</strong> ${datos.nombre}</li>
+      <li><strong>Email:</strong> ${datos.email}</li>
+      <li><strong>Contraseña:</strong> ${datos.password}</li>
+      <li><strong>Fecha de nacimiento:</strong> ${datos.fecha}</li>
+      <li><strong>Código postal:</strong> ${datos.cp}</li>
+      <li><strong>Teléfono:</strong> ${datos.telefono}</li>
+      <li><strong>Género:</strong> ${datos.genero}</li>
+      <li><strong>País:</strong> ${datos.pais}</li>
+      <li><strong>DNI/NIE/Pasaporte:</strong> ${datos.dni}</li>
+      <li><strong>Comentarios:</strong> ${datos.comentarios}</li>
+      <li><strong>Dirección:</strong> ${datos.direccion}</li>
+    </ul>
+  `;
+  contenedor.style.display = "block";
+
+  setTimeout(() => {
+    contenedor.style.display = "none";
+  }, 8000);
+}
+
+// Validar y mostrar datos al enviar
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
   validarTodosLosCampos();
@@ -179,25 +276,50 @@ document.querySelector("form").addEventListener("submit", function (e) {
     cp: form.cp.value,
     telefono: form.telefono.value,
     genero: form.genero.value,
-    pais: form.pais.value.trim(),
+    pais: form.pais.value,
     dni: form.dni.value.trim(),
     comentarios: form.comentarios.value.trim(),
     direccion: form.direccion.value.trim()
   };
 
-  alert(`Datos introducidos:
-Nombre: ${datos.nombre}
-Email: ${datos.email}
-Contraseña: ${datos.password}
-Fecha de nacimiento: ${datos.fecha}
-Código postal: ${datos.cp}
-Teléfono: ${datos.telefono}
-Género: ${datos.genero}
-País: ${datos.pais}
-DNI/NIE/Pasaporte: ${datos.dni}
-Comentarios: ${datos.comentarios}
-Dirección: ${datos.direccion}`);
+  const esValido = validarTodosLosCampos();
+
+  if (esValido) {
+    const form = e.target;
+    const datos = {
+      nombre: form.nombre.value.trim(),
+      email: form.email.value.trim(),
+      password: form.password.value,
+      fecha: form.fecha.value,
+      cp: form.cp.value,
+      telefono: form.telefono.value,
+      genero: form.genero.value,
+      pais: form.pais.value,
+      dni: form.dni.value.trim(),
+      comentarios: form.comentarios.value.trim(),
+      direccion: form.direccion.value.trim()
+    };
+
+    mostrarAnimacion(datos);
+  }
 });
+
+
+
+// Mostrar/ocultar contraseña
+document.getElementById("togglePassword").addEventListener("click", function () {
+  const input = document.getElementById("password");
+  const icon = this;
+
+  if (input.type === "password") {
+    input.type = "text";
+    icon.textContent = "🙈";
+  } else {
+    input.type = "password";
+    icon.textContent = "👁️";
+  }
+});
+
 
 // Ocultar botón al cargar
 window.addEventListener("DOMContentLoaded", () => {

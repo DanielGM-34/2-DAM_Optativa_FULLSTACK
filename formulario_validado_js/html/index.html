@@ -48,7 +48,7 @@
 
         <!-- 6. Dirección -->
         <div class="form-group">
-            <label for="direccion">Direccion</label>
+            <label for="direccion">Dirección:</label>
             <input type="text"  id="direccion" name="direccion" class="form-control" 
                 placeholder="Pon aqui tu direccion, ejemplo: C falsa n1" >
         </div>
@@ -56,7 +56,12 @@
         <!-- 7. País -->
         <div class="form-group">
             <label for="pais">País:</label>
-            <input type="text" id="pais" name="pais" class="form-control" placeholder="Introduce el país">
+            <select name="pais" id="pais">
+                <option value="">Selecciona</option>
+                <option value="Espanya">España</option>
+                <option value="México">México</option>
+                <option value="Colombia">Colombia</option>
+            </select>
         </div>
 
         <!-- 8. Teléfono -->
@@ -88,12 +93,13 @@
             <textarea id="comentarios" name="comentarios" rows="4" class="form-control"></textarea>
         </div>
 
-        <!-- Botones enviar y limpia-->
+        <!-- Botones enviar y limpiador de estilillos-->
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Enviar</button>
             <button type="reset" class="btn btn-secondary">Limpiar</button>
         </div>
     </form>
+<div id="animacionDatos" class="animacion-container" style="display:none;"></div>
 
     <script src='/js/my_script.js'></script>
 </body>
