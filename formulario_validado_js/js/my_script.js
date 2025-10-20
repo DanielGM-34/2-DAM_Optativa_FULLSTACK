@@ -42,8 +42,6 @@ function validarFecha(valor) {
   return esValido;
 }
 
-
-
 function validarCP(valor) {
   return /^\d{5}$/.test(valor);
 }
@@ -95,7 +93,7 @@ function limpiarErrores(id) {
   actualizarBotonSubmit();
 }
 
-// Validar campo genérico
+// Validar campo genérico, usado para la contraseña mayormente
 function validarCampo(id, validador, mensaje) {
   const valor = document.getElementById(id).value.trim();
   const resultado = validador(valor);
@@ -118,49 +116,14 @@ function actualizarBotonSubmit() {
   submitBtn.style.display = todosValidos ? "inline-block" : "none";
 }
 
-// Validar todos los campos al enviar
-function validarTodosLosCampos() {
-  const campos = [
-  ["nombre", validarNombre],
-  ["email", validarEmail],
-  ["password", validarPassword],
-  ["fecha", validarFecha],
-  ["cp", validarCP],
-  ["telefono", validarTelefono],
-  ["genero", validarGenero],
-  ["pais", validarPais],
-  ["dni", validarDNI],
-  ["comentarios", validarComentarios],
-  ["direccion", validarDireccion]
-];
 
 
-  let todoCorrecto = true;
-  campos.forEach(([id, validador, mensaje]) => {
-    const valor = document.getElementById(id).value.trim();
-    const resultado = validador(valor);
-    limpiarErrores(id);
-
-    if (typeof resultado === "boolean") {
-      if (!resultado) {
-        mostrarError(id, mensaje);
-        todoCorrecto = false;
-      }
-    } else if (Array.isArray(resultado) && resultado.length > 0) {
-      mostrarError(id, "La contraseña debe cumplir:\n" + resultado.join("\n"));
-      todoCorrecto = false;
-    }
-  });
-
-  return todoCorrecto;
-}
-
-// Eventos blur por campo
+// Eventos blur de campos
 document.getElementById("nombre").addEventListener("blur", () =>
   validarCampo("nombre", validarNombre, "Nombre inválido (mínimo 3 letras, sin números).")
 );
 document.getElementById("email").addEventListener("blur", () =>
-  validarCampo("email", validarEmail, "Correo electrónico no válido. Este sería un ejemplo de un emaail válido: Emailfalso@ejemplo.com")
+  validarCampo("email", validarEmail, "Correo electrónico no válido. Este sería un ejemplo de un email válido: Emailfalso@ejemplo.com")
 );
 document.getElementById("password").addEventListener("blur", () =>
   validarCampo("password", validarPassword, )
@@ -208,8 +171,6 @@ function limpiarFormulario() {
 
 // Escucha el evento reset
 document.querySelector("form").addEventListener("reset", limpiarFormulario);
-
-// Puedes llamarla manualmente cuando quieras
 limpiarFormulario();
 
 
@@ -242,28 +203,48 @@ function mostrarAnimacion(datos) {
 // Validar y mostrar datos al enviar
 document.querySelector("form").addEventListener("submit", function (e) {
   e.preventDefault();
-  validarTodosLosCampos();
   const form = e.target;
-  const datos = {
-    nombre: form.nombre.value.trim(),
-    email: form.email.value.trim(),
-    password: form.password.value,
-    fecha: form.fecha.value,
-    cp: form.cp.value,
-    telefono: form.telefono.value,
-    genero: form.genero.value,
-    pais: form.pais.value,
-    dni: form.dni.value.trim(),
-    comentarios: form.comentarios.value.trim(),
-    direccion: form.direccion.value.trim()
+
+  const camposValidadores = {
+    nombre: validarNombre,
+    email: validarEmail,
+    password: validarPassword,
+    fecha: validarFecha,
+    cp: validarCP,
+    telefono: validarTelefono,
+    genero: validarGenero,
+    pais: validarPais,
+    dni: validarDNI,
+    comentarios: validarComentarios,
+    direccion: validarDireccion
   };
 
-  const esValido = validarTodosLosCampos();
-  if (esValido) {
+  let todoCorrecto = true;
+  const datos = {};
+  for (const id in camposValidadores) {
+    const validador = camposValidadores[id];
+    const valor = form[id].value.trim();
+    const resultado = validador(valor);
+    datos[id] = valor;
+    limpiarErrores(id);
+
+    if (typeof resultado === "boolean") {
+      if (!resultado) {
+        mostrarError(id, "");
+        todoCorrecto = false;
+      }
+    } else if (Array.isArray(resultado) && resultado.length > 0) {
+      mostrarError(id, "La contraseña debe cumplir:\n" + resultado.join("\n"));
+      todoCorrecto = false;
+    }
+  }
+
+  if (todoCorrecto) {
     mostrarAnimacion(datos);
     limpiarFormulario();
   }
 });
+
 
 // Mostrar/ocultar contraseña
 document.getElementById("togglePassword").addEventListener("click", function () {
@@ -278,7 +259,6 @@ document.getElementById("togglePassword").addEventListener("click", function () 
     icon.textContent = "👁️";
   }
 });
-
 
 // Ocultar botón al cargar
 window.addEventListener("DOMContentLoaded", () => {
