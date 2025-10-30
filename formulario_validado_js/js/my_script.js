@@ -68,9 +68,13 @@ function validarComentarios(valor) {
 }
 
 function validarDireccion(valor) {
-    const validaDireccion = /^(Calle|C|Avenida|Avda\.?|Plaza|Camino|Paseo|Carretera)\s+[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+\,?\s*\d{1,4}[A-Za-zºª\-]?(?:\s+\d{1,2}[ºª]?[A-Za-z]?)?$/;
+  const validaDireccion = /^(Calle|C\.?|Avenida|Avda\.?|Plaza|Camino|Paseo|Carretera|Callejón)\s+[\wÁÉÍÓÚáéíóúÑñºª\-\/\(\)\.]+(?:\s[\wÁÉÍÓÚáéíóúÑñºª\-\/\(\)\.]+)*\,?\s*(S\/N|\d{1,4}[ºª]?[A-Za-z\-\/]*)?(?:\,?\s*\d{5})?(?:\,?\s+[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+(?:\s*\([A-Za-zÁÉÍÓÚáéíóúÑñ\s]+\))?)?$/i;
   return validaDireccion.test(valor);
 }
+
+
+
+
 
 // Mostrar y limpiar errores
 function mostrarError(id, mensaje) {
@@ -150,7 +154,7 @@ document.getElementById("comentarios").addEventListener("blur", () =>
   validarCampo("comentarios", validarComentarios, "Escribe al menos 10 caracteres.")
 );
 document.getElementById("direccion").addEventListener("blur", () =>
-  validarCampo("direccion", validarDireccion, "Pon aquí tu dirección. Debe empezar por Calle, C, Avenida, Avda., Plaza, Camino, Paseo o Carretera seguido del nombre y número. Ejemplo: Calle Mayor 10")
+  validarCampo("direccion", validarDireccion, "Pon aquí tu dirección SIN COMAS NI PUNTOS. Debe empezar por Calle, C, Avenida, Avda., Plaza, Camino, Paseo o Carretera seguido del nombre y número. Ejemplo: Calle Mayor 10")
 );
 
 
