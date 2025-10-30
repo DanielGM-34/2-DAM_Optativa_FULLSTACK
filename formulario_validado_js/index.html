@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Formulario de registro</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/styles.css'>
+</head>
+
+<body>
+    <form action="/submit" method="post" class="form-example">
+        <h2>Formulario de registro</h2>
+            <legend>Para pasar de campo a campo, puedes usar el <strong>tabulador o el click </strong>para ir de un campo a otro y aparecerán las distintas validaciones de campos
+            El botón enviar (submit), se mostrará cuando se hayan verificado el cumplimiento de todas las validaciones.
+            </legend>
+        
+        
+            <!-- 1. Nombre -->
+        <div class="form-group">
+            <label for="nombre">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" class="form-control" autocomplete="off">
+        </div>
+
+        <!-- 2. Correo electrónico -->
+        <div class="form-group">
+            <label for="email">Correo electrónico:</label>
+            <input type="text" id="email" name="email" class="form-control" autocomplete="off">
+        </div>
+
+        <!-- 3. Contraseña -->
+        <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" class="form-control" >
+                <span class="toggle-password" id="togglePassword">👁️</span>
+            </div>
+        </div>
+
+        <!-- 4. Fecha de nacimiento -->
+        <div class="form-group">
+            <label for="fecha">Fecha de nacimiento:</label>
+            <input type="date" id="fecha" name="fecha" class="form-control">
+        </div>
+
+        <!-- 5. Código postal -->
+        <div class="form-group">
+            <label for="cp">Código postal:</label>
+            <input type="text" id="cp" name="codigo_postal" class="form-control" >
+        </div>
+
+        <!-- 6. Dirección -->
+        <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="text"  id="direccion" name="direccion" class="form-control" 
+                placeholder="Pon aqui tu direccion, ejemplo: C falsa n1" >
+        </div>
+
+        <!-- 7. País -->
+        <div class="form-group">
+            <label for="pais">País:</label>
+            <select name="pais" id="pais">
+                <option value="">Selecciona</option>
+                <option value="Espanya">España</option>
+                <option value="México">México</option>
+                <option value="Colombia">Colombia</option>
+            </select>
+        </div>
+
+        <!-- 8. Teléfono -->
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" class="form-control">
+        </div>
+
+        <!-- 9. Género -->
+        <div class="form-group">
+            <label for="genero">Género:</label>
+            <select id="genero" name="genero" class="form-control">
+                <option value="">Selecciona</option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+                <option value="no_decir">Prefiero no decirlo</option>
+            </select>
+        </div>
+
+        <!-- 10. Número de documento -->
+        <div class="form-group">
+            <label for="dni">DNI/NIE/Pasaporte:</label>
+            <input type="text" id="dni" name="dni" class="form-control">
+        </div>
+        
+        <!-- 11. Comentarios -->
+        <div class="form-group">
+            <label for="comentarios">Comentarios adicionales:</label>
+            <textarea id="comentarios" name="comentarios" rows="4" class="form-control"></textarea>
+        </div>
+
+        <!-- Botones enviar y limpiador de estilillos-->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="reset" class="btn btn-secondary">Limpiar</button>
+        </div>
+    </form>
+<div id="animacionDatos" class="animacion-container" style="display:none;"></div>
+
+    <script src='js/my_script.js'></script>
+</body>
+
+</html>
