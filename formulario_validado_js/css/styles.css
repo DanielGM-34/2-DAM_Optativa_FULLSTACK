@@ -132,6 +132,7 @@ button:hover {
   font-size: 20px;
   user-select: none;
   transition: transform 0.3s ease;
+
 }
 
 .toggle-password:hover {

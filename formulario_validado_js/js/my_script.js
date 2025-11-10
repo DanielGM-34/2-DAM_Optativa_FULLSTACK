@@ -59,9 +59,24 @@ function validarPais(valor) {
   return valor !== "";
 }
 
-function validarDNI(valor) {
-  return /^[0-9]{8}[A-Z]$/.test(valor) || /^[XYZ][0-9]{7}[A-Z]$/.test(valor);
+function validarDNI(dni) {
+  const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+  dni = dni.replace(/\s/g, '').toUpperCase();
+
+  let esValido = false;
+
+  if (/^\d{8}[A-Z]$/.test(dni)) {
+    const numeroDNI = parseInt(dni.substring(0, 8), 10);
+    const letraIntroducida = dni.charAt(8);
+    const letraCalculada = letras.charAt(numeroDNI % 23);
+
+    esValido = letraIntroducida === letraCalculada;
+  }
+
+  return esValido;
 }
+
+
 
 function validarComentarios(valor) {
   return /^.{10,}$/.test(valor);
