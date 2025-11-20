@@ -10,7 +10,16 @@ app.get('/pruebas', (req, res) => {
   //console.log(__dirname) //ruta donde estamos
   //res.send('Ya somos unos crack en Node+Express')
   //pasa un json con un titulo
-  res.render('pruebas', { titulo: 'titulo nuevoooo' })
+  res.render('pruebas', { titulo: 'titulo nuevoooo', descripcion: 'descripción nueva'  })
+
+})
+
+app.get('/pruebas2', (req, res) => {
+  //console.log(__dirname) //ruta donde estamos
+  //res.send('Ya somos unos crack en Node+Express')
+  //pasa un json con un titulo
+  res.render('pruebas2', { titulo: 'titulo nuevoooo 2', descripcion: 'descripción nueva 2'  })
+
 })
 
 app.get('/contacto', (req, res) => {
@@ -26,4 +35,3 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
-
