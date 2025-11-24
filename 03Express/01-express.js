@@ -6,6 +6,12 @@ app.set('view engine', 'ejs')
 app.use('views', express.static(__dirname + '/views'))
 app.use(express.static(__dirname + '/public'));
 
+//Llamada a la ruta de router
+app.use('/', require('./router/rutas'));
+
+//LLamada a pokemon
+app.use('/pokemon', require('./router/pokemon'))
+
 app.get('/pruebas', (req, res) => {
   //console.log(__dirname) //ruta donde estamos
   //res.send('Ya somos unos crack en Node+Express')
