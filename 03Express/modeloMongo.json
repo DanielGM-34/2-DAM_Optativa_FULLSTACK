@@ -1,0 +1,101 @@
+{
+  "gimnasio_inteligente": {
+    "usuarios": [
+      {
+        "_id": "12345678Z",
+        "Nombre_Completo": "Dani Ejemplo",
+        "Email": "dani@example.com",
+        "Contraseña": "hashSeguro123",
+        "Fecha_De_Registro": "2025-12-01"
+      }
+    ],
+    "clientes": [
+      {
+        "_id": "C001",
+        "DNI": "12345678Z",
+        "Objetivo_Físico": "Hipertrofia",
+        "Fecha_Alta": "2025-12-01",
+        "Membresía": "activa"
+      }
+    ],
+    "instructores": [
+      {
+        "_id": "I001",
+        "DNI": "12345678Z",
+        "Especialidad": "CrossFit",
+        "Perfil_Profesional": "8 años de experiencia en entrenamiento funcional"
+      }
+    ],
+    "administradores": [
+      {
+        "_id": "A001",
+        "DNI": "12345678Z"
+      }
+    ],
+    "clases": [
+      {
+        "_id": "CL001",
+        "Nombre": "HIIT Mañanas",
+        "Tipo": "HIIT",
+        "Horario": "L-M-X 08:00",
+        "Nivel": "Intermedio",
+        "Cupo_Max": 20,
+        "ID_Instructor": "I001"
+      }
+    ],
+    "calendario": [
+      {
+        "_id": "CAL001",
+        "ID_Clase": "CL001",
+        "Fecha": "2025-12-03",
+        "Estado": "pendiente"
+      }
+    ],
+    "productos": [
+      {
+        "_id": "P001",
+        "Nombre": "Proteína Whey",
+        "Precio": 29.99,
+        "Stock": 120
+      }
+    ],
+    "ventas": [
+      {
+        "_id": "V001",
+        "ID_Cliente": "C001",
+        "ID_Producto": "P001",
+        "Fecha": "2025-12-01",
+        "Cantidad": 2,
+        "Total": 59.98
+      }
+    ],
+    "asistencias": [
+      {
+        "_id": "AS001",
+        "ID_Cliente": "C001",
+        "ID_Clase": "CL001",
+        "Fecha": "2025-12-03",
+        "Estado": "presente"
+      }
+    ],
+    "informesMensuales": [
+      {
+        "_id": "INF001",
+        "ID_Cliente": "C001",
+        "Fecha_Generación": "2025-12-31",
+        "Clases_Asistidas": 12,
+        "Evolución_RM": "Mejora de +5kg en press banca",
+        "Productos_Comprados": 3
+      }
+    ],
+    "cargasMasivas": [
+      {
+        "_id": "CM001",
+        "Tipo_Datos": "usuarios",
+        "Fecha": "2025-12-01",
+        "ID_Admin": "A001",
+        "Resultado": "correctos"
+      }
+    ]
+  }
+}
