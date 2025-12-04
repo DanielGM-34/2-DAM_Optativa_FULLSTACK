@@ -1,0 +1,16 @@
+<%- include('templates/cabecera', { tituloWeb: 'Resultado de inscripción' }) %>
+
+<h2>Datos recibidos</h2>
+<ul class="list-group">
+  <li class="list-group-item"><strong>Nombre:</strong> <%= nombre %></li>
+  <li class="list-group-item"><strong>Edad:</strong> <%= edad %></li>
+  <li class="list-group-item"><strong>Fecha de nacimiento:</strong> <%= fechaNac %></li>
+  <li class="list-group-item"><strong>Email:</strong> <%= email %></li>
+  <li class="list-group-item"><strong>DNI:</strong> <%= dni %></li>
+  <li class="list-group-item"><strong>Sexo:</strong> <%= Array.isArray(sexo) ? sexo.join(', ') : sexo %></li>
+</ul>
+
+<a href="/personal/formulario" class="btn btn-secondary mt-3">Volver al formulario</a>
+<a href="/" class="btn btn-link mt-3">Inicio</a>
+
+<%- include('templates/cierre') %>

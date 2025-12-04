@@ -1,0 +1,66 @@
+<%- include('templates/cabecera', { tituloWeb: 'Inscripción de personal' }) %>
+
+<form class="needs-validation" action="/personal/inscribir" method="POST" novalidate>
+  <div class="mb-3">
+    <label for="nombre" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="nombre" name="nombre" required>
+    <div class="invalid-feedback">Introduce el nombre.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="edad" class="form-label">Edad</label>
+    <input type="number" class="form-control" id="edad" name="edad" required>
+    <div class="invalid-feedback">Introduce la edad.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="fechaNac" class="form-label">Fecha de nacimiento</label>
+    <input type="date" class="form-control" id="fechaNac" name="fechaNac" required>
+    <div class="invalid-feedback">Introduce la fecha de nacimiento.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo electrónico</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+    <div class="invalid-feedback">Introduce un correo válido.</div>
+  </div>
+
+  <div class="mb-3">
+    <label for="dni" class="form-label">DNI</label>
+    <input type="text" class="form-control" id="dni" name="dni" required>
+    <div class="invalid-feedback">Introduce el DNI.</div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label d-block">Sexo</label>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" id="sexoM" name="sexo" value="Masculino">
+      <label class="form-check-label" for="sexoM">Masculino</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" id="sexoF" name="sexo" value="Femenino">
+      <label class="form-check-label" for="sexoF">Femenino</label>
+    </div>
+    <div class="form-text">Puedes marcar uno o ambos.</div>
+  </div>
+
+  <button class="btn btn-primary" type="submit">Inscribir</button>
+</form>
+
+<script>
+  (function () {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>
+
+<%- include('templates/cierre') %>
