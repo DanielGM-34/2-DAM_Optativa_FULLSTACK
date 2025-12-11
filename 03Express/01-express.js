@@ -12,6 +12,22 @@ app.use('/', require('./router/rutas'));
 //LLamada a pokemon
 app.use('/pokemon', require('./router/pokemon'))
 
+//Conexión a base de datos
+const mongoose = require('mongoose');
+//Variables que tendremos siempre:
+//Lo correcto será declararlas EN VARIABLES DE ENTORNO
+//para que nadie vea directamente nuestras credenciales
+const user = 'miUsuario';
+const password = 'admin';
+const dbname = 'pokemon';
+
+// Usa backticks para interpolar la variable dbname
+const uri = `mongodb+srv://${user}:${password}@daniel.wxaacev.mongodb.net/${dbname}`;
+
+mongoose.connect(uri)
+  .then(() => console.log('Base de datos conectada'))
+  .catch(e => console.log(e))
+
 app.get('/pruebas', (req, res) => {
   //console.log(__dirname) //ruta donde estamos
   //res.send('Ya somos unos crack en Node+Express')
@@ -25,8 +41,9 @@ app.get('/pruebas2', (req, res) => {
   //res.send('Ya somos unos crack en Node+Express')
   //pasa un json con un titulo
   res.render('pruebas2', { titulo: 'titulo nuevoooo 2', descripcion: 'descripción nueva 2'  })
-
 })
+
+
 
 app.get('/contacto', (req, res) => {
   console.log(__dirname + '/public')
@@ -41,3 +58,4 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+

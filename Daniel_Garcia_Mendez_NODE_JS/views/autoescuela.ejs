@@ -1,0 +1,36 @@
+<%- include("templates/encabezado", {tituloWeb:'Panel de admministración de autoescuelas'}) %>
+<h1>Tabla con las autoescuelas </h1>
+ <div class="container">
+       <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="table-primary">Identificador de cada autoescuela</th>
+                    <th scope="col" class="table-secondary">Nombre</th>
+                    <th scope="col" class="table-success">Tipo</th>
+                    <th scope="col" class="table-info">Descripción</th>
+                    <th scope="col"  class="table-light">Ubicación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (arrayAutoescuela.length> 0) { %>
+          <!--Haremos el foreach para recorrer el array-->
+          <% arrayAutoescuela.forEach(autoescuela => { %>
+              <tr>
+                  <th scope="row"><%=autoescuela.id %></th>
+                  <td><%= autoescuela.nombre %></td>
+                  <td><%=autoescuela.tipoClase %></td>
+                  <td><%=autoescuela.descripcion %></td>
+                <td><%=autoescuela.ubicacion %></td>
+                
+              </tr>
+          <% }) %>
+      <% } %>
+            </tbody>
+        </table>
+
+  </div>
+
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quo corporis ipsam hic nihil suscipit dicta esse, nulla reprehenderit placeat sit expedita libero magni eum culpa accusantium amet explicabo animi!</p>
+
+
+<%- include("templates/pie") %>

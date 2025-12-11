@@ -1,0 +1,92 @@
+// const express = require('express')
+// const app = express()
+// const port = 3000
+
+// app.set('view engine', 'ejs')
+// app.use('views', express.static(__dirname + '/views'))
+// app.use(express.static(__dirname + '/public'));
+
+// //Llamada a la ruta de router
+// app.use('/', require('./router/rutas'));
+
+// //LLamada a pokemon
+// app.use('/pokemon', require('./router/pokemon'))
+
+// app.get('/pruebas', (req, res) => {
+//   //console.log(__dirname) //ruta donde estamos
+//   //res.send('Ya somos unos crack en Node+Express')
+//   //pasa un json con un titulo
+//   res.render('pruebas', { titulo: 'titulo nuevoooo', descripcion: 'descripción nueva'  })
+
+// })
+
+// app.get('/pruebas2', (req, res) => {
+//   //console.log(__dirname) //ruta donde estamos
+//   //res.send('Ya somos unos crack en Node+Express')
+//   //pasa un json con un titulo
+//   res.render('pruebas2', { titulo: 'titulo nuevoooo 2', descripcion: 'descripción nueva 2'  })
+
+// })
+
+// app.get('/contacto', (req, res) => {
+//   console.log( __dirname + '/public')
+//   res.send('Estas en contactos')
+// }) 
+
+
+// app.use((req, res) => {
+//   res.status(404).sendFile(__dirname + "/public/html/404.html")
+// })
+
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
+
+//gtp
+
+const express = require('express')
+const app = express()
+const port = 3000
+
+// Motor de vistas dinámicas
+app.set('view engine', 'ejs')
+app.set('views', __dirname + '/views')
+
+// Archivos estáticos (CSS, JS, imágenes, HTML sueltos)
+app.use(express.static(__dirname + '/public'))
+
+// Rutas con EJS
+app.use('/', require('./router/rutas'))
+app.use('/pokemon', require('./router/pokemon'))
+
+// Ejemplo de vistas dinámicas
+app.get('/pruebas', (req, res) => {
+  res.render('pruebas', { titulo: 'titulo nuevoooo', descripcion: 'descripción nueva' })
+})
+
+app.get('/pruebas2', (req, res) => {
+  res.render('pruebas2', { titulo: 'titulo nuevoooo 2', descripcion: 'descripción nueva 2' })
+})
+
+
+app.get('/index', (req, res) => {
+  res.render('index', { titulo: 'titulo nuevoooo', descripcion: 'descripción nueva' })
+})
+
+// Ejemplo de HTML estático
+app.get('/contacto', (req, res) => {
+  res.sendFile(__dirname + '/public/html/contacto.html')
+})
+
+app.get('/product', (req, res) => {
+  res.sendFile(__dirname + '/public/html/product.html')
+})
+
+// Página 404
+app.use((req, res) => {
+  res.status(404).sendFile(__dirname + '/public/html/404.html')
+})
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`)
+})
