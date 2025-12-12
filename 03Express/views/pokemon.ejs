@@ -1,6 +1,10 @@
 <%- include("templates/cabecera", {tituloWeb:'Panel de admministración'}) %>
 
     <div class="container">
+        <h1>CRUD MONGO</h1>
+        <a class="btn btn-success bt-block my-4" href="/pokemon/crear">
+            Crear nuevo Pokemon
+        </a>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -28,7 +32,9 @@
                             <td>
                                 <%= pokemon.descripcion %>
                             </td>
-                            <td>Aciones</td>
+                            <td>
+                                <a class="btn btn-warning btn-sm" href="pokemon/<%= pokemon.id %>">Editar/Eliminar</a>
+                            </td>
                         </tr>
                         <% }) %>
                             <% } %>

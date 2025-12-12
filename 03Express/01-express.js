@@ -1,6 +1,16 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+
+
+require('dotenv').config()
+
+const port = process.env.PORT || 3000
 
 app.set('view engine', 'ejs')
 app.use('views', express.static(__dirname + '/views'))
@@ -17,12 +27,10 @@ const mongoose = require('mongoose');
 //Variables que tendremos siempre:
 //Lo correcto será declararlas EN VARIABLES DE ENTORNO
 //para que nadie vea directamente nuestras credenciales
-const user = 'miUsuario';
-const password = 'admin';
-const dbname = 'pokemon';
+
 
 // Usa backticks para interpolar la variable dbname
-const uri = `mongodb+srv://${user}:${password}@daniel.wxaacev.mongodb.net/${dbname}`;
+const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@daniel.wxaacev.mongodb.net/${process.env.DBNAME}`;
 
 mongoose.connect(uri)
   .then(() => console.log('Base de datos conectada'))
