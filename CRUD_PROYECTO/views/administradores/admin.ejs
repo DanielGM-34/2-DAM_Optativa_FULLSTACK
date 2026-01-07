@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gimnasio Inteligente - Panel Principal</title>
+
+    <!-- Bootstrap 5 -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+        rel="stylesheet">
+
+    <!-- Iconos Bootstrap -->
+    <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .header-title {
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+<%- include('../templates/navbar_admin') %>
+
+
+
+    <div class="container">
+        <h2 class="text-center mb-4 header-title">Panel de Entidades</h2>
+
+        <div class="row g-4">
+
+            <!-- Usuario -->
+            <div class="col-md-4">
+                <a href="/usuarios" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-person-fill"></i> Usuarios</h4>
+                        <p>Gestión de usuarios registrados en el sistema.</p>
+                    </div>
+                </a>
+            </div>
+
+       
+            <!-- Instructor -->
+            <div class="col-md-4">
+                <a href="/instructores" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-person-workspace"></i> Instructores</h4>
+                        <p>Especialidades y perfiles profesionales.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Administrador -->
+            <div class="col-md-4">
+                <a href="/administradores" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-shield-lock-fill"></i> Administradores</h4>
+                        <p>Gestión de administradores del sistema.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Clase -->
+            <div class="col-md-4">
+                <a href="/clases" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-calendar-event-fill"></i> Clases</h4>
+                        <p>Actividades impartidas en el gimnasio.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Calendario -->
+            <div class="col-md-4">
+                <a href="/calendario" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-calendar-check-fill"></i> Calendario</h4>
+                        <p>Programación y estado de las clases.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Producto -->
+            <div class="col-md-4">
+                <a href="/productos" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-bag-fill"></i> Productos</h4>
+                        <p>Catálogo de productos disponibles.</p>
+                    </div>
+                </a>
+            </div> 
+
+            <!-- Venta -->
+            <div class="col-md-4">
+                <a href="/ventas" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-cart-check-fill"></i> Ventas</h4>
+                        <p>Registro de compras realizadas.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Asistencia -->
+            <div class="col-md-4">
+                <a href="/asistencias" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-clipboard-check-fill"></i> Asistencias</h4>
+                        <p>Control de asistencia a clases.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Carga Masiva -->
+            <div class="col-md-4">
+                <a href="/cargas" class="text-decoration-none text-dark">
+                    <div class="card p-3">
+                        <h4><i class="bi bi-upload"></i> Cargas Masivas</h4>
+                        <p>Importación de datos por administradores.</p>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>

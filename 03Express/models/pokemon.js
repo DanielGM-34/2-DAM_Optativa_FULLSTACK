@@ -5,7 +5,7 @@ const pokemonSchema = new Schema({
     nombre: String,
     tipo: String,
     descripcion: String
-})
+}) 
 
 //Creamos el modelo
 const Pokemon = mongoose.model('pokemon', pokemonSchema, "pokemon");

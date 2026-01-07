@@ -1,0 +1,154 @@
+<%- include("../templates/cabecera", { tituloWeb:'Detalles del usuario' }) %>
+
+<div class="container">
+    <h1>Detalles del Usuario</h1>
+
+    <% if (!error) { %>
+
+        <form id="editar" data-id="<%= usuario.DNI %>">
+
+            <!-- DNI (no editable) -->
+            <input type="text" id="dni" value="<%= usuario.DNI %>" class="form-control my-2" disabled>
+
+            <!-- Nombre -->
+            <input type="text" id="nombre" value="<%= usuario.Nombre_Completo %>" 
+                   class="form-control my-2" name="Nombre_Completo">
+            <div class="invalid-feedback"></div>
+
+            <!-- Email -->
+            <input type="email" id="email" value="<%= usuario.Email %>" 
+                   class="form-control my-2" name="Email">
+            <div class="invalid-feedback"></div>
+
+            <!-- Contraseña -->
+            <div class="input-group my-2">
+                <input type="password" id="password" value="<%= usuario.Contrasena %>" 
+                       class="form-control" name="Contrasena">
+                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </div>
+            <div class="invalid-feedback"></div>
+
+            <!-- Objetivo -->
+            <input type="text" id="objetivo" value="<%= usuario.Objetivo_Fisico %>" 
+                   class="form-control my-2" name="Objetivo_Fisico">
+            <div class="invalid-feedback"></div>
+
+            <!-- Membresía -->
+            <select id="membresia" name="Membresia" class="form-control my-2">
+                <option value="">Selecciona una opción</option>
+                <option value="activa" <%= usuario.Membresia === 'activa' ? 'selected' : '' %>>Activa</option>
+                <option value="vencida" <%= usuario.Membresia === 'vencida' ? 'selected' : '' %>>Vencida</option>
+            </select>
+            <div class="invalid-feedback"></div>
+
+            <button class="btn btn-warning btn-sm mt-3" type="submit">
+                Editar
+            </button>
+        </form>
+
+        <hr>
+
+        <!-- BOTÓN ELIMINAR -->
+        <button class="btn btn-danger btn-sm" data-id="<%= usuario.DNI %>">
+            Eliminar
+        </button>
+
+    <% } %>
+</div>
+
+<%- include("../templates/cierre") %>
+
+<script src="/js/validarUsuario.js"></script>
+
+<script>
+/* ============================
+   TOGGLE PASSWORD
+============================ */
+document.getElementById("togglePassword").addEventListener("click", function () {
+    const input = document.getElementById("password");
+    const icon = this.querySelector("i");
+
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.remove("bi-eye");
+        icon.classList.add("bi-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("bi-eye-slash");
+        icon.classList.add("bi-eye");
+    }
+});
+
+/* ============================
+   ELIMINAR USUARIO (DELETE)
+============================ */
+const btnEliminar = document.querySelector('.btn-danger');
+
+btnEliminar.addEventListener('click', async () => {
+    const confirmar = confirm("¿Seguro que quieres eliminar este usuario?");
+
+    if (confirmar) {
+        const data = await fetch(`/usuarios/${btnEliminar.dataset.id}`, {
+            method: 'DELETE'
+        });
+
+        const res = await data.json();
+
+        if (res.estado) {
+            window.location.href = '/usuarios';
+        } else {
+            console.log(res);
+        }
+    } else {
+        console.log("Eliminación cancelada por el usuario.");
+    }
+});
+
+/* ============================
+   EDITAR USUARIO (PUT)
+============================ */
+const formEditar = document.querySelector('#editar');
+
+formEditar.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const campos = ["nombre", "email", "password", "objetivo", "membresia"];
+    let todoCorrecto = true;
+
+    campos.forEach(id => {
+        const campo = document.getElementById(id);
+        if (!campo.classList.contains("is-valid")) {
+            todoCorrecto = false;
+        }
+    });
+
+    if (todoCorrecto) {
+        const Nombre_Completo = formEditar.elements['Nombre_Completo'].value;
+        const Email = formEditar.elements['Email'].value;
+        const Contrasena = formEditar.elements['Contrasena'].value;
+        const Objetivo_Fisico = formEditar.elements['Objetivo_Fisico'].value;
+        const Membresia = formEditar.elements['Membresia'].value;
+
+        const DNI = formEditar.dataset.id;
+
+        const data = await fetch(`/usuarios/${DNI}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ Nombre_Completo, Email, Contrasena, Objetivo_Fisico, Membresia })
+        });
+
+        const res = await data.json();
+
+        if (res.estado) {
+            window.location.href = '/usuarios';
+        } else {
+            console.log(res);
+        }
+    } else {
+        alert("Corrige los errores antes de enviar.");
+        console.warn("Formulario enviado con errores.");
+    }
+});
+</script>

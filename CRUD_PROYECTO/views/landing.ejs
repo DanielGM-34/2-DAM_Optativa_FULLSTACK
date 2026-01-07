@@ -1,0 +1,59 @@
+<%- include('templates/header', { title: "Gimnasio Inteligente" }) %>
+<%- include('templates/navbar') %>
+
+<div class="container text-center mt-5">
+
+    <!-- Logo -->
+    <div class="text-center mb-4">
+        <img src="/img/logo.png" 
+             alt="Logo Vida Inteligente Plus" 
+             class="img-fluid" 
+             style="max-width: 300px;">
+    </div>
+
+    <h1 class="title mb-4"><i class="bi bi-barbell"></i> Gimnasio Inteligente</h1>
+    <p class="lead mb-5">Bienvenido al sistema de gestión del gimnasio</p>
+
+    <div class="row justify-content-center g-4">
+
+        <!-- Iniciar sesión -->
+        <div class="col-md-4">
+            <a href="/login" class="text-decoration-none text-dark">
+                <div class="card p-4 text-center bg-light">
+                    <h3><i class="bi bi-box-arrow-in-right"></i></h3>
+                    <h4>Iniciar Sesión</h4>
+                    <p>Accede a tu cuenta de cliente o instructor.</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Registrarse -->
+        <div class="col-md-4">
+            <a href="/usuarios/registro" class="text-decoration-none text-dark">
+                <div class="card p-4 text-center bg-light">
+                    <h3><i class="bi bi-person-plus-fill"></i></h3>
+                    <h4>¿No tienes cuenta?</h4>
+                    <p>Regístrate para acceder al sistema.</p>
+                </div>
+            </a>
+        </div>
+
+<!-- Admin -->
+<div class="col-md-4">
+    <a href="/administradores" class="text-decoration-none text-dark">
+        <div class="card p-4 text-center bg-warning">
+            <h3><i class="bi bi-shield-lock-fill"></i></h3>
+            <h4>Administrador</h4>
+            <p>Acceso al panel completo del sistema.</p>
+        </div>
+    </a>
+</div>
+
+
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<%- include('templates/footer') %>

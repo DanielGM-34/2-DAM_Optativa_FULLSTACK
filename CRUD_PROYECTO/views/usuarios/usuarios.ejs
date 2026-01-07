@@ -1,0 +1,45 @@
+<%- include("../templates/cabecera", { tituloWeb:'Panel de administración' }) %>
+
+<div class="container">
+    <h1>CRUD Usuarios</h1>
+
+    <a class="btn btn-success bt-block my-4" href="/usuarios/crear">
+        Crear nuevo Usuario
+    </a>
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombre Completo</th>
+                <th scope="col">Email</th>
+                <th scope="col">Membresia</th>
+                <th scope="col">Acción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% if (arrayUsuarios.length > 0) { %>
+                <% arrayUsuarios.forEach(usuario => { %>
+                    <tr>
+                        <td><%= usuario.DNI %></td>
+                        <td><%= usuario.Nombre_Completo %></td>
+                        <td><%= usuario.Email %></td>
+                        <td><%= usuario.Membresia %></td>
+                        <td>
+                            <a class="btn btn-warning btn-sm" href="/usuarios/<%= usuario.DNI %>">
+                                Editar/Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="5" class="text-center">No hay usuarios registrados.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+<%- include("../templates/cierre") %>

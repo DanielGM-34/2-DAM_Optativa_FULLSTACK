@@ -1,0 +1,51 @@
+<%- include("../templates/cabecera", {tituloWeb:'Panel de administración'}) %>
+
+<div class="container">
+    <h1>Crear nuevo Usuario</h1>
+
+    <!-- FORMULARIO -->
+    <form action="/usuarios/crear" class="my-2" method="POST" id="formUsuario">
+
+        <input type="text" id="dni" placeholder="DNI" class="form-control my-2" name="DNI">
+        <div class="invalid-feedback"></div>
+
+        <input type="text" id="nombre" placeholder="Nombre Completo" class="form-control my-2"
+            name="Nombre_Completo">
+        <div class="invalid-feedback"></div>
+
+        <input type="email" id="email" placeholder="Email" class="form-control my-2" name="Email">
+        <div class="invalid-feedback"></div>
+
+        <div class="input-group my-2">
+            <input type="password" id="password" class="form-control" name="Contrasena" placeholder="Contraseña">
+            <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                <i class="bi bi-eye"></i>
+            </button>
+        </div>
+        <div class="invalid-feedback"></div>
+
+        <input type="text" id="objetivo" placeholder="Objetivo Físico" class="form-control my-2"
+            name="Objetivo_Fisico">
+        <div class="invalid-feedback"></div>
+
+        <select id="membresia" name="Membresia" class="form-control my-2">
+            <option value="">Selecciona una opción</option>
+            <option value="activa">Activa</option>
+            <option value="vencida">Vencida</option>
+        </select>
+        <div class="invalid-feedback"></div>
+
+        <button type="submit" class="btn btn-dark btn-block">Agregar</button>
+        <button type="reset" class="btn btn-secondary btn-block">Limpiar</button>
+    </form>
+
+    <!-- MENSAJE DE ÉXITO -->
+    <div id="mensajeExito" class="alert alert-success text-center mt-3" style="display:none;">
+        <h4>Usuario creado correctamente</h4>
+        <p>Serás redirigido al listado en <span id="contador">5</span> segundos...</p>
+    </div>
+
+    <div id="animacionDatos" class="animacion-container" style="display:none;"></div>
+</div>
+
+<%- include("../templates/cierre") %>
