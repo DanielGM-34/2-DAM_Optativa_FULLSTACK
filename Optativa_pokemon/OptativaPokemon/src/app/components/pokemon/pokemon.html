@@ -1,0 +1,22 @@
+<h1 class="text-3xl font-bold mb-6">Pokémon</h1>
+
+<button (click)="abrirCrear()" class="bg-blue-600 text-white px-4 py-2 rounded">
+  Crear Pokémon
+</button>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+
+  <div *ngFor="let p of listaPokemon; trackBy: trackById">
+    <div class="p-5 bg-white shadow rounded border">
+      <h2 class="text-xl font-semibold">{{ p.nombre }}</h2>
+      <p><strong>Tipo:</strong> {{ p.tipo }}</p>
+      <p class="text-gray-500">{{ p.descripcion }}</p>
+
+      <div class="flex gap-3 mt-4">
+        <button (click)="abrirEditar(p)" class="text-blue-600">Editar</button>
+        <button (click)="abrirEliminar(p)" class="text-red-600">Eliminar</button>
+      </div>
+    </div>
+  </div>
+
+</div>
